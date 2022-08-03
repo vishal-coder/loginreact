@@ -7,8 +7,12 @@ import { formik, useFormik } from "formik";
 import * as yup from "yup";
 import { string } from "yup";
 import { useNavigate } from "react-router-dom";
-function Register({ setCurrentUser }) {
+// import dotenv from "dotenv";
+import { UserContext } from "./Context/UserContext.js";
+import { submitRegistration } from "./auth/auth.js";
+function Register() {
   const navigate = useNavigate();
+  const { login } = useContext(UserContext);
   const userValidation = yup.object({
     fullName: string().required().min(6),
     username: string().email().required().min(5),
@@ -22,6 +26,7 @@ function Register({ setCurrentUser }) {
     handleBlur,
     errors,
     touched,
+    setFieldError,
   } = useFormik({
     initialValues: {
       fullName: "",
@@ -29,36 +34,19 @@ function Register({ setCurrentUser }) {
       password: "",
     },
     validationSchema: userValidation,
-    onSubmit: (values) => {
-      console.log("submitting form", values);
-      submitRegistration(values);
+    onSubmit: async (values) => {
+      const data = await submitRegistration(values);
+
+      if (data.token) {
+        localStorage.setItem("user", JSON.stringify(data.token));
+
+        navigate("/dashboard");
+        login(data.username, data.token); // change 'myUser' to actual username
+      } else {
+        setFieldError("fullName", data.message);
+      }
     },
   });
-
-  const submitRegistration = async (values) => {
-    console.log(values);
-    const response = await fetch(`HTTP://localhost:4044/auth/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    console.log("response response", response);
-    const data = await response.json();
-    console.log("response data", data);
-    console.log("response data", data.token);
-    if (data.token) {
-      //
-      localStorage.setItem("user", JSON.stringify(data.token));
-      console.log(localStorage);
-      console.log(localStorage.getItem("user"));
-      navigate("/dashboard");
-      setCurrentUser(localStorage.getItem("user"));
-      //window.location.reload();
-    }
-  };
 
   return (
     <Paper elevation={3} className="regPaper">

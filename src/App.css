@@ -27,3 +27,56 @@
 .error {
   color: red;
 }
+
+.loginPaper {
+  position: absolute;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+}
+
+.loginForm {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 500px;
+}
+
+.loginbtn-grp {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.resetpasswordPaper {
+  width: 40%;
+  position: absolute;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+}
+.forgotmailSuccess {
+  padding: 20px;
+}
+
+.resetPassForm {
+  margin-left: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 500px;
+}

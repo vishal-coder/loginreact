@@ -5,11 +5,11 @@ function Dashboard() {
   return (
     <div>
       Dashboard
-      <nav>
+      {/* <nav>
         <NavLink to="overview">overview of dashboard</NavLink>
         <NavLink to="AddUser">Add new user here</NavLink>
         <NavLink to="ShowUserList">List all Users here</NavLink>
-      </nav>
+      </nav> */}
       <Outlet />
     </div>
   );
