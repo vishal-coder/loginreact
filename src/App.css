@@ -80,3 +80,8 @@
   gap: 20px;
   width: 500px;
 }
+
+.successResponse {
+  padding: 20px;
+  background-color: #caf9c4;
+}

@@ -70,6 +70,7 @@ function ResetPassword() {
               name="password"
               label="enter new password"
               variant="outlined"
+              type="password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -85,6 +86,7 @@ function ResetPassword() {
               name="confirmPassword"
               label="confirm new password"
               variant="outlined"
+              type="password"
               value={values.confirmPassword}
               onChange={handleChange}
               onBlur={handleBlur}

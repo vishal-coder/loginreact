@@ -31,6 +31,7 @@ import Login from "./pages/Login.js";
 import ForgotPassword from "./pages/ForgotPassword.js";
 import ResetPassword from "./pages/ResetPassword.js";
 import VerifyToken from "./pages/VerifyToken.js";
+import VerifyEmail from "./pages/VerifyEmail.js";
 
 import { UserContext } from "./Context/UserContext.js";
 function App() {
@@ -93,6 +94,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/verifyToken" element={<VerifyToken />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/verifyEmail/:token" element={<VerifyEmail />} />
       </Routes>
     </div>
   );
