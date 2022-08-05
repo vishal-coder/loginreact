@@ -1,8 +1,8 @@
 import "./App.css";
 import Register from "./Register.js";
-import Navbar from "./Navbar.js";
+
 import { useState, useEffect } from "react";
-import AuthService from "./AuthService.js";
+
 import {
   BrowserRouter,
   Routes,
@@ -32,13 +32,13 @@ import ForgotPassword from "./pages/ForgotPassword.js";
 import ResetPassword from "./pages/ResetPassword.js";
 import VerifyToken from "./pages/VerifyToken.js";
 import VerifyEmail from "./pages/VerifyEmail.js";
+import PrivateRoute from "../src/pages/PrivateRoute.js";
 
 import { UserContext } from "./Context/UserContext.js";
 function App() {
   const { user, logout } = useContext(UserContext);
   const navigate = useNavigate();
   const logOut = () => {
-    AuthService.logout();
     logout();
     navigate("/");
   };
@@ -84,7 +84,14 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
           <Route path="overview" element={<p>Overview</p>} />
           <Route path="AddUser" element={<p>AddUser</p>} />
           <Route path="ShowUserList" element={<p>ShowUserList</p>} />

@@ -7,9 +7,11 @@ import * as yup from "yup";
 import { string } from "yup";
 import { formik, useFormik } from "formik";
 import { handleLogin } from "../auth/auth.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { UserContext } from "../Context/UserContext.js";
 function Login() {
+  const location = useLocation();
+
   const navigate = useNavigate();
   const { login } = useContext(UserContext);
   const userValidation = yup.object({
@@ -33,8 +35,10 @@ function Login() {
       const data = await handleLogin(values);
 
       if (data.token) {
+        let from = location.state?.from?.pathname || "/dashboard";
         localStorage.setItem("user", JSON.stringify(data.token));
-        navigate("/dashboard");
+        navigate(from, { replace: true });
+
         login(data.username, data.token); // change 'myUser' to actual username
       } else {
         setFieldError("username", data.message);
