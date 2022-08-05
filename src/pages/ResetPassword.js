@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -12,6 +12,13 @@ import { UserContext } from "../Context/UserContext.js";
 import { handleresetpassword } from "../auth/auth.js";
 
 function ResetPassword() {
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    const token = localStorage.getItem("token");
+    if (!(id && token)) {
+      navigate("/login");
+    }
+  }, []);
   const [flag, setFlag] = useState(false);
   const [urlParams, setURLParams] = useSearchParams();
   const id = urlParams.get("id");
@@ -44,6 +51,9 @@ function ResetPassword() {
 
       const data = await handleresetpassword(values, id, token);
       if (data.success) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("user");
         setFlag(true);
       } else {
         setFieldError("password", data.message);
